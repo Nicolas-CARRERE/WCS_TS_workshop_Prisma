@@ -3,14 +3,16 @@ import { Book } from "@prisma/client";
 import { RequestHandler } from "express";
 import { ResponseError } from "../../interfaces/globalTypes";
 
-type BookBodyPost = Omit<
-  Book,
-  "id" | "createdAt" | "updatedAt" | "collectionId"
-> & { collectionName: string };
+type BookBodyCreate = {
+  title: string;
+  author: string;
+  collection: string;
+};
 
 export interface BookHandlers {
   getAll: RequestHandler<null, Book[] | ResponseError, null>;
   getOne: RequestHandler<{ id: string }, Book | ResponseError, null>;
-  create: RequestHandler<null, Book | ResponseError, BookBodyPost>;
-  // add the rest of the handlers here
+  create: RequestHandler<null, Book | ResponseError, BookBodyCreate>;
+  update: RequestHandler<{ id: string }, Book | ResponseError, BookBodyCreate>;
+  delete: RequestHandler<{ id: string }, Book | ResponseError, null>;
 }

@@ -1,15 +1,12 @@
-import express from "express";
-import dotenv from "dotenv";
+import Express from "express";
+
 import api from "./api";
 
-dotenv.config();
+const app = Express();
 
-const app = express();
+app.use(Express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
+// this line !!
 app.use("/api/v1", api);
 
 export default app;
